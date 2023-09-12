@@ -635,3 +635,16 @@ function equella_grade_item_delete($eq) {
     return grade_update(EQUELLA_SOURCE, $eq->courseid, EQUELLA_ITEM_TYPE, EQUELLA_ITEM_MODULE, $eq->id, 0, NULL, array('deleted'=>1));
 }
 
+/**
+ * Select the corrresponding field to allocate the username to $USER
+ */
+function mod_equella_after_config(){
+    global $CFG, $USER;
+    if (!isset($USER->equella_userfield)) {
+        if (get_config('equella', 'userfield') != 'default' && isset($USER->profile[$CFG->equella_userfield])) {
+            $USER->equella_userfield = $USER->profile[$CFG->equella_userfield];
+        } else {
+            $USER->equella_userfield = $USER->username;
+        }
+    }
+}
