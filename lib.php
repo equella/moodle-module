@@ -636,15 +636,16 @@ function equella_grade_item_delete($eq) {
 }
 
 /**
- * Select the corrresponding field to allocate the username to $USER
+ * Select the corresponding field to allocate the username to $USER
  */
-function mod_equella_after_config(){
-    global $CFG, $USER;
-    if (!isset($USER->equella_userfield)) {
-        if (get_config('equella', 'userfield') != 'default' && isset($USER->profile[$CFG->equella_userfield])) {
-            $USER->equella_userfield = $USER->profile[$CFG->equella_userfield];
+function mod_equellamu_after_config(){
+    global $USER;
+    if(!isset($USER->equellauser) && isset($USER->username)) {
+        $userfield = get_config('equella', 'userfield');
+        if ($userfield != 'default' && isset($USER->profile[$userfield])) {
+            $USER->equellauser = $USER->profile[$userfield];
         } else {
-            $USER->equella_userfield = $USER->username;
+            $USER->equellauser = $USER->username;
         }
     }
 }
