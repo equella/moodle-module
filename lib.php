@@ -639,9 +639,9 @@ function equella_grade_item_delete($eq) {
  * Select the corresponding field to allocate the username to $USER
  */
 function mod_equella_after_config(){
-    global $USER;
+    global $USER, $CFG;
     if(!isset($USER->equellauser) && isset($USER->username)) {
-        $userfield = get_config('equella', 'userfield');
+        $userfield = $CFG->equella_userfield;
         if ($userfield != 'default' && isset($USER->profile[$userfield])) {
             $USER->equellauser = $USER->profile[$userfield];
         } else {

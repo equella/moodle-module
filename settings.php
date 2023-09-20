@@ -43,7 +43,7 @@ if ($ADMIN->fulltree) {
     foreach($DB->get_records('user_info_field') as $params){
         $userfieldoptions[$params->shortname] = $params->name;
     }
-    $settings->add(new admin_setting_configselect('equella/userfield', ecs('userfield.title'), ecs('userfield.desc'), 'default', $userfieldoptions));
+    $settings->add(new admin_setting_configselect('equella_userfield', ecs('userfield.title'), ecs('userfield.desc'), 'default', $userfieldoptions));
 
     $restrictionOptions = array(EQUELLA_CONFIG_SELECT_RESTRICT_NONE => trim(ecs('restriction.none')),EQUELLA_CONFIG_SELECT_RESTRICT_ITEMS_ONLY => trim(ecs('restriction.itemsonly')),EQUELLA_CONFIG_SELECT_RESTRICT_ATTACHMENTS_ONLY => trim(ecs('restriction.attachmentsonly')),
         EQUELLA_CONFIG_SELECT_RESTRICT_PACKAGES_ONLY => trim(ecs('restriction.packagesonly')));
