@@ -54,6 +54,8 @@ function equella_soap_endpoint() {
 function equella_getssotoken($course = null) {
     global $USER, $CFG, $COURSE;
 
+    require_once($CFG->dirroot . '/mod/equella/lib.php');
+
     if (empty($course)) {
         $course = $COURSE;
     }
@@ -64,6 +66,8 @@ function equella_getssotoken($course = null) {
         $context_cc = context_coursecat::instance($course->category);
     }
     $context_c = context_course::instance($course->id);
+
+    $equellauserfield = mod_equella_get_userfield_value();
 
     // roles are ordered by shortname
     $editingroles = get_all_editing_roles();
@@ -85,7 +89,7 @@ function equella_getssotoken($course = null) {
             // see if the user has a role that is linked to an equella role
             $shareid = $CFG->{"equella_{$role->shortname}_shareid"};
             if (!empty($shareid)) {
-                return equella_getssotoken_raw($USER->username, $shareid, $CFG->{"equella_{$role->shortname}_sharedsecret"});
+                return equella_getssotoken_raw($equellauserfield, $shareid, $CFG->{"equella_{$role->shortname}_sharedsecret"});
             }
         }
     }
@@ -93,7 +97,7 @@ function equella_getssotoken($course = null) {
     // no roles found, use the default shareid and secret
     $shareid = $CFG->equella_shareid;
     if (!empty($shareid)) {
-        return equella_getssotoken_raw($USER->username, $shareid, $CFG->equella_sharedsecret);
+        return equella_getssotoken_raw($equellauserfield, $shareid, $CFG->equella_sharedsecret);
     }
 }
 

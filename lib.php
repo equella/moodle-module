@@ -635,3 +635,18 @@ function equella_grade_item_delete($eq) {
     return grade_update(EQUELLA_SOURCE, $eq->courseid, EQUELLA_ITEM_TYPE, EQUELLA_ITEM_MODULE, $eq->id, 0, NULL, array('deleted'=>1));
 }
 
+
+/**
+ * Retrieve the userfield/username for a current user.
+ *
+ * @return string
+ */
+function mod_equella_get_userfield_value(): string {
+    global $CFG, $USER;
+    $userfield = $CFG->equella_userfield;
+    if ($userfield != 'default' && isset($USER->profile[$userfield])) {
+        return $USER->profile[$userfield];
+    } else {
+        return $USER->username;
+    }
+}

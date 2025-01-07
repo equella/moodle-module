@@ -54,6 +54,19 @@ if ($ADMIN->fulltree) {
 
     // ///////////////////////////////////////////////////////////////////////////////
     //
+    // SSO settings
+    //
+    $settings->add(new admin_setting_heading('equella_sso_settings', ecs('sso.heading'), ''));
+
+    $userfieldoptions = [];
+    $userfieldoptions = ['default' => ecs('userfield.username')];
+    foreach($DB->get_records('user_info_field', ['datatype' => 'text']) as $params){
+        $userfieldoptions[$params->shortname] = $params->name;
+    }
+    $settings->add(new admin_setting_configselect('equella_userfield', ecs('userfield.title'), ecs('userfield.desc'), 'default', $userfieldoptions));
+
+    // ///////////////////////////////////////////////////////////////////////////////
+    //
     // LTI
     //
     $settings->add(new admin_setting_heading('equella_lti_settings', ecs('lti.heading'), ecs('lti.help')));
