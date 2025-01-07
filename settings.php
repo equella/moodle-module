@@ -52,17 +52,18 @@ if ($ADMIN->fulltree) {
 
     $settings->add(new admin_setting_configtext('equella_default_window_height', ecs('window.height'), '', EQUELLA_DEFAULT_WINDOW_HEIGHT));
 
+    // ///////////////////////////////////////////////////////////////////////////////
+    //
     // SSO settings
+    //
     $settings->add(new admin_setting_heading('equella_sso_settings', ecs('sso.heading'), ''));
 
-    $userfieldoptions = array();
-    $userfieldoptions = array('default' => ecs('userfield.username'));
-    foreach($DB->get_records('user_info_field') as $params){
+    $userfieldoptions = [];
+    $userfieldoptions = ['default' => ecs('userfield.username')];
+    foreach($DB->get_records('user_info_field', ['datatype' => 'text']) as $params){
         $userfieldoptions[$params->shortname] = $params->name;
     }
     $settings->add(new admin_setting_configselect('equella_userfield', ecs('userfield.title'), ecs('userfield.desc'), 'default', $userfieldoptions));
-
-
 
     // ///////////////////////////////////////////////////////////////////////////////
     //
