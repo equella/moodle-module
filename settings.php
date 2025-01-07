@@ -38,13 +38,6 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('equella_url', ecs('url.title'), ecs('url.desc'), ''));
     $settings->add(new admin_setting_configtext('equella_action', ecs('action.title'), ecs('action.desc'), ''));
 
-    $userfieldoptions = array();
-    $userfieldoptions = array('default' => ecs('userfield.username'));
-    foreach($DB->get_records('user_info_field') as $params){
-        $userfieldoptions[$params->shortname] = $params->name;
-    }
-    $settings->add(new admin_setting_configselect('equella_userfield', ecs('userfield.title'), ecs('userfield.desc'), 'default', $userfieldoptions));
-
     $restrictionOptions = array(EQUELLA_CONFIG_SELECT_RESTRICT_NONE => trim(ecs('restriction.none')),EQUELLA_CONFIG_SELECT_RESTRICT_ITEMS_ONLY => trim(ecs('restriction.itemsonly')),EQUELLA_CONFIG_SELECT_RESTRICT_ATTACHMENTS_ONLY => trim(ecs('restriction.attachmentsonly')),
         EQUELLA_CONFIG_SELECT_RESTRICT_PACKAGES_ONLY => trim(ecs('restriction.packagesonly')));
 
@@ -58,6 +51,18 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('equella_default_window_width', ecs('window.width'), '', EQUELLA_DEFAULT_WINDOW_WIDTH));
 
     $settings->add(new admin_setting_configtext('equella_default_window_height', ecs('window.height'), '', EQUELLA_DEFAULT_WINDOW_HEIGHT));
+
+    // SSO settings
+    $settings->add(new admin_setting_heading('equella_sso_settings', ecs('sso.heading'), ''));
+
+    $userfieldoptions = array();
+    $userfieldoptions = array('default' => ecs('userfield.username'));
+    foreach($DB->get_records('user_info_field') as $params){
+        $userfieldoptions[$params->shortname] = $params->name;
+    }
+    $settings->add(new admin_setting_configselect('equella_userfield', ecs('userfield.title'), ecs('userfield.desc'), 'default', $userfieldoptions));
+
+
 
     // ///////////////////////////////////////////////////////////////////////////////
     //
